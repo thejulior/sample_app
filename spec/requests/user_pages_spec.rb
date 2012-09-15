@@ -37,6 +37,10 @@ require 'spec_helper'
         it "should create a user" do
           expect { click_button submit }.to change(User, :count).by(1)
         end
+
+        describe "after saving the user" do
+          it { should have_link('Sign out') }
+        end
       end
     end
   end
