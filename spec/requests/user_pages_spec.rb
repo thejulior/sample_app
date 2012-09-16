@@ -94,8 +94,8 @@ require 'spec_helper'
         visit users_path
       end
 
-      it { should have_selector('title', text: 'All users') }
-      it { should have_selector('h1', text: 'All users') }
+      #it { should have_selector('title', text: 'All users') }
+      #it { should have_selector('h1', text: 'All users') }
 
         it "should list each user" do
           User.all.each do |user|
