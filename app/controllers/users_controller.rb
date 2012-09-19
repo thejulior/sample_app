@@ -43,11 +43,12 @@ class UsersController < ApplicationController
 
   def destroy
     user = User.find(params[:id])
-    if user != current_user
+    if user.admin?
+      flash[:error] = "Admins cannot delete themselves"
+      redirect_to users_path
+    else
       user.destroy
       flash[:success] = "User destroyed."
-    else
-      flash[:error] = "Admins cannot delete themselves"
       redirect_to users_path
     end
   end
