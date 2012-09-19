@@ -11,6 +11,9 @@ gem 'bootstrap-will_paginate', '0.0.6'
 group :development, :test do
   gem 'sqlite3', '1.3.5'
   gem 'rspec-rails', '2.10.0'
+  gem 'guard-rspec', '0.5.5'
+  gem 'guard-spork', '0.3.2'
+  gem 'spork', '0.9.0'
 end
 
 
@@ -25,6 +28,7 @@ gem 'jquery-rails'
 group :test do
   gem 'capybara', '1.1.2'
   gem 'factory_girl_rails'
+  gem 'database_cleaner', '0.7.0'
 end
 
 group :production do

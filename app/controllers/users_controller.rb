@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
 
   before_filter :signed_in_user, only: [:index, :edit, :update, :destroy]
+  before_filter :signed_in_restrictions, only: [:new, :create]
   before_filter :correct_user, only: [:edit, :update]
   before_filter :admin_user, only: :destroy
 
@@ -41,9 +42,14 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    User.find(params[:id]).destroy
-    flash[:success] = "User destroyed."
-    redirect_to users_path
+    user = User.find(params[:id])
+    if user != current_user
+      user.destroy
+      flash[:success] = "User destroyed."
+    else
+      flash[:error] = "Admins cannot delete themselves"
+      redirect_to users_path
+    end
   end
 
   private
@@ -65,4 +71,11 @@ class UsersController < ApplicationController
     redirect_to(root_path) unless current_user.admin?
   end
 
+  def signed_in_restrictions
+    if signed_in?
+      redirect_to root_path notice: "Can't perform this action while Signed in"
+    end
+  end
 end
+
+
